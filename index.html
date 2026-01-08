@@ -7,24 +7,18 @@
   <style>
     :root{
       --bg:#070b14;
-      --panel: rgba(255,255,255,.08);
-      --panel2: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.14);
       --text:#eef2ff;
       --muted:#a9b4d0;
       --good:#34d399;
       --bad:#fb7185;
       --accent:#60a5fa;
-      --accent2:#c084fc;
       --shadow: 0 24px 80px rgba(0,0,0,.45);
-      --radius: 22px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
         radial-gradient(1200px 800px at 15% 10%, rgba(96,165,250,.22), transparent 60%),
         radial-gradient(900px 700px at 80% 30%, rgba(192,132,252,.18), transparent 55%),
@@ -33,7 +27,6 @@
       color:var(--text);
       overflow:hidden;
     }
-
     .topbar{
       position:fixed;
       top:14px; left:14px; right:14px;
@@ -54,11 +47,10 @@
       border:1px solid rgba(255,255,255,.16);
       background:rgba(0,0,0,.28);
       box-shadow:0 10px 30px rgba(0,0,0,.25);
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
     }
-    .pill span{color:var(--muted); font-weight:800}
-    .pill strong{font-weight:900}
+    .pill span{color:var(--muted)}
     .btn{
       pointer-events:auto;
       appearance:none;
@@ -68,14 +60,13 @@
       padding:10px 14px;
       border-radius:999px;
       cursor:pointer;
-      font-weight:900;
+      font-weight:1000;
       font-size:13px;
       transition: transform .08s ease, filter .2s ease, opacity .2s ease;
       user-select:none;
     }
-    .btn:hover{filter:brightness(1.06)}
-    .btn:active{transform:translateY(1px)}
     .btn.secondary{background:rgba(255,255,255,.08)}
+    .btn:active{transform:translateY(1px)}
     .btn:disabled{opacity:.55; cursor:not-allowed; transform:none}
 
     .screen{
@@ -96,12 +87,12 @@
       box-shadow:var(--shadow);
       padding:22px;
     }
-
-    h1{margin:0 0 8px; font-size:22px; letter-spacing:.2px}
+    h1{margin:0 0 8px; font-size:22px}
     .sub{margin:0 0 18px; color:var(--muted); line-height:1.4}
-    .row{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:center}
-    .spacer{height:14px}
     .divider{height:1px; background:rgba(255,255,255,.12); margin:16px 0}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center}
+    .fine{font-size:12px;color:var(--muted);line-height:1.35}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
     /* Matching */
     .matchWrap{
@@ -122,7 +113,7 @@
       margin:0 0 10px;
       color:var(--muted);
       font-size:12px;
-      font-weight:900;
+      font-weight:1000;
       letter-spacing:.5px;
       text-transform:uppercase;
     }
@@ -138,7 +129,7 @@
       background:rgba(255,255,255,.06);
       cursor:pointer;
       user-select:none;
-      font-weight:900;
+      font-weight:1000;
       transition: transform .08s ease, background .2s ease, border-color .2s ease;
     }
     .tile:hover{background:rgba(255,255,255,.08)}
@@ -165,7 +156,6 @@
       border-color:rgba(251,113,133,.7);
       background:rgba(251,113,133,.10);
     }
-    .matchHint{color:var(--muted); font-size:13px; margin:0}
 
     /* Scenarios */
     .scenarioBox{
@@ -184,14 +174,13 @@
       border:1px solid rgba(255,255,255,.14);
       background:rgba(0,0,0,.18);
       color:var(--muted);
-      font-weight:900;
+      font-weight:1000;
       font-size:13px;
     }
     .prompt{
       font-size:22px;
       font-weight:1000;
       margin:8px 0 12px;
-      letter-spacing:.2px;
     }
     .accentBar{
       display:flex;
@@ -205,7 +194,6 @@
       border-radius:16px;
       margin:10px 0 12px;
     }
-    .accentHint{color:var(--muted); font-size:12px; font-weight:900}
     .keyBtn{
       border:1px solid rgba(255,255,255,.18);
       background:rgba(0,0,0,.18);
@@ -241,7 +229,7 @@
       color:var(--text);
       padding:14px 14px;
       font-size:18px;
-      font-weight:800;
+      font-weight:900;
       outline:none;
       text-align:center;
     }
@@ -258,18 +246,10 @@
       background:rgba(0,0,0,.18);
       color:var(--muted);
     }
-    .status.good{
-      border-color:rgba(52,211,153,.55);
-      background:rgba(52,211,153,.10);
-      color:rgba(232,255,244,.92);
-    }
-    .status.bad{
-      border-color:rgba(251,113,133,.6);
-      background:rgba(251,113,133,.10);
-      color:rgba(255,236,240,.92);
-    }
+    .status.good{border-color:rgba(52,211,153,.55); background:rgba(52,211,153,.10); color:rgba(232,255,244,.92)}
+    .status.bad{border-color:rgba(251,113,133,.6); background:rgba(251,113,133,.10); color:rgba(255,236,240,.92)}
 
-    /* Leaderboard table */
+    /* Leaderboard */
     .scoresWrap{
       width:min(860px, 100%);
       margin:0 auto;
@@ -296,8 +276,6 @@
     }
     th{color:var(--muted); font-weight:1000; font-size:12px; text-transform:uppercase; letter-spacing:.4px}
     tr:last-child td{border-bottom:none}
-    .fine{font-size:12px;color:var(--muted);line-height:1.35}
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
   </style>
 </head>
 <body>
@@ -310,29 +288,25 @@
     </div>
   </div>
 
-  <!-- START -->
   <section class="screen active" id="startScreen">
     <div class="card">
       <h1>Être Speedrun</h1>
-      <p class="sub">
-        Stage 1: match pronouns → conjugations. Stage 2: 10 scenarios. Timer runs from Start to final correct answer.
-      </p>
+      <p class="sub">Stage 1: match pronouns → conjugations. Stage 2: 10 scenarios. Timer runs from Start to final correct answer.</p>
       <div class="row">
         <button class="btn" id="startBtn">Start</button>
       </div>
       <div class="divider"></div>
-      <p class="fine">
-        Leaderboard uses your Cloudflare Worker endpoint:
-        <code id="apiLabel"></code>
-      </p>
+      <p class="fine">API: <code id="apiLabel"></code></p>
     </div>
   </section>
 
-  <!-- MATCHING -->
   <section class="screen" id="matchScreen">
     <div class="card">
       <h1>Stage 1 — Matching</h1>
-      <p class="sub">Click a pronoun, then click the matching conjugation. Duplicates like <strong>est</strong> and <strong>sont</strong> are handled correctly.</p>
+      <p class="sub">
+        Click a pronoun, then click its conjugation. For duplicates like <strong>est</strong> and <strong>sont</strong>,
+        <strong>any</strong> matching tile works.
+      </p>
 
       <div class="matchWrap">
         <div class="col">
@@ -346,11 +320,10 @@
       </div>
 
       <div class="divider"></div>
-      <p class="matchHint" id="matchStatus">Match all pairs to continue.</p>
+      <p class="fine" id="matchStatus">Match all pairs to continue.</p>
     </div>
   </section>
 
-  <!-- SCENARIOS -->
   <section class="screen" id="scenarioScreen">
     <div class="card">
       <h1>Stage 2 — Scenarios</h1>
@@ -365,7 +338,7 @@
         <div class="prompt" id="promptText">—</div>
 
         <div class="accentBar">
-          <div class="accentHint">Accent keys:</div>
+          <div class="fine">Accent keys:</div>
           <button class="keyBtn" id="key1"><kbd>1</kbd> ê</button>
         </div>
 
@@ -379,7 +352,6 @@
     </div>
   </section>
 
-  <!-- FINISH + LEADERBOARD -->
   <section class="screen" id="boardScreen">
     <div class="card">
       <h1 id="boardTitle">Leaderboard</h1>
@@ -417,57 +389,38 @@
           <button class="btn" id="playAgainBtn">Play Again</button>
         </div>
 
-        <p class="fine" style="margin-top:12px">
-          API: <code id="apiLabel2"></code>
-        </p>
+        <p class="fine" style="margin-top:12px">API: <code id="apiLabel2"></code></p>
       </div>
     </div>
   </section>
 
 <script>
-/* ============================================================
-   CONFIG: Your Cloudflare Worker endpoint
-   ============================================================ */
+/* CONFIG */
 const HIGHSCORE_URL = "https://pronounfrenchleaderboard.orcajoon.workers.dev/api/highscores";
 
-/* ============================================================
-   DATA
-   ============================================================ */
-// Matching pairs: each has a unique id, even if conjugation text duplicates.
-const MATCH_PAIRS = [
-  { id: "je",    pronoun: "Je",    conj: "suis"   },
-  { id: "tu",    pronoun: "Tu",    conj: "es"     },
-  { id: "il",    pronoun: "Il",    conj: "est"    },
-  { id: "elle",  pronoun: "Elle",  conj: "est"    },
-  { id: "on",    pronoun: "On",    conj: "est"    },
-  { id: "nous",  pronoun: "Nous",  conj: "sommes" },
-  { id: "vous",  pronoun: "Vous",  conj: "êtes"   },
-  { id: "ils",   pronoun: "Ils",   conj: "sont"   },
-  { id: "elles", pronoun: "Elles", conj: "sont"   }
+/* MATCHING DATA
+   We intentionally allow ANY matching tile for duplicates.
+*/
+const MATCH_TARGETS = [
+  { pronoun: "Je",    target: "suis"   },
+  { pronoun: "Tu",    target: "es"     },
+  { pronoun: "Il",    target: "est"    },
+  { pronoun: "Elle",  target: "est"    },
+  { pronoun: "On",    target: "est"    },
+  { pronoun: "Nous",  target: "sommes" },
+  { pronoun: "Vous",  target: "êtes"   },
+  { pronoun: "Ils",   target: "sont"   },
+  { pronoun: "Elles", target: "sont"   }
 ];
 
-// Scenario blueprint: 10 questions, includes 2x "Ils sont"
-const SCENARIO_KEYS = [
-  "je",
-  "tu",
-  "il",
-  "elle",
-  "on",
-  "nous",
-  "vous",
-  "ils",
-  "ils",
-  "elles"
-];
+const SCENARIO_KEYS = ["je","tu","il","elle","on","nous","vous","ils","ils","elles"];
 
 const NAMES_MALE = ["Pierre","Louis","Hugo","Noah","Lucas","Arthur","Jules","Paul","Maxime","Théo","Antoine","Nicolas"];
 const NAMES_FEMALE = ["Marie","Camille","Chloé","Emma","Léa","Sophie","Manon","Sarah","Julie","Inès","Anaïs","Clara"];
 const NAMES_GROUP_MIXED = ["Pierre & Marie", "Louis & Chloé", "Hugo & Emma", "Jules & Léa", "Arthur & Sophie"];
 const NAMES_GROUP_FEMALE = ["Marie & Camille", "Chloé & Léa", "Emma & Sarah", "Julie & Clara", "Inès & Anaïs"];
 
-/* ============================================================
-   DOM
-   ============================================================ */
+/* DOM */
 const timeText = document.getElementById("timeText");
 const resetBtn = document.getElementById("resetBtn");
 const startBtn = document.getElementById("startBtn");
@@ -503,14 +456,11 @@ const scoreBody = document.getElementById("scoreBody");
 const backToStartBtn = document.getElementById("backToStartBtn");
 const playAgainBtn = document.getElementById("playAgainBtn");
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
+/* HELPERS */
 function show(screen){
   [startScreen, matchScreen, scenarioScreen, boardScreen].forEach(s=>s.classList.remove("active"));
   screen.classList.add("active");
 }
-
 function shuffle(arr){
   const a = arr.slice();
   for (let i=a.length-1;i>0;i--){
@@ -519,7 +469,6 @@ function shuffle(arr){
   }
   return a;
 }
-
 function formatTime(ms){
   const total = Math.max(0, Math.floor(ms));
   const sec = Math.floor(total/1000);
@@ -528,18 +477,12 @@ function formatTime(ms){
   const cs = Math.floor((total % 1000)/10);
   return `${m}:${String(s).padStart(2,"0")}.${String(cs).padStart(2,"0")}`;
 }
-
 function normalize(s){
-  return (s || "")
-    .trim()
-    .replace(/\s+/g, " ")
-    .toLowerCase();
+  return (s||"").trim().replace(/\s+/g," ").toLowerCase();
 }
-
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[c]));
 }
-
 function insertAtCursor(input, text){
   const start = input.selectionStart ?? input.value.length;
   const end = input.selectionEnd ?? input.value.length;
@@ -551,200 +494,155 @@ function insertAtCursor(input, text){
   input.focus();
 }
 
-/* ============================================================
-   TIMER
-   ============================================================ */
+/* TIMER */
 let started = false;
 let startMs = 0;
 let timerHandle = null;
-
 function startTimer(){
   startMs = performance.now();
   timeText.textContent = "0:00.00";
-  timerHandle = setInterval(()=>{
-    timeText.textContent = formatTime(performance.now() - startMs);
-  }, 50);
+  timerHandle = setInterval(()=>{ timeText.textContent = formatTime(performance.now() - startMs); }, 50);
 }
-function stopTimer(){
-  if (timerHandle) clearInterval(timerHandle);
-  timerHandle = null;
-}
-function totalElapsedMs(){
-  return Math.floor(performance.now() - startMs);
-}
+function stopTimer(){ if (timerHandle) clearInterval(timerHandle); timerHandle = null; }
+function elapsedMs(){ return Math.floor(performance.now() - startMs); }
 
-/* ============================================================
-   STAGE 1: MATCHING (pronoun -> conjugation), duplicates safe
-   ============================================================ */
-let selectedPronoun = null; // {id, el}
-let selectedConj = null;    // {id, el}
-let lockedPronounIds = new Set();
-let lockedConjEls = new Set(); // lock by element to allow duplicate text
-let lockedPronounEls = new Set();
-let matchCount = 0;
+/* STAGE 1 MATCHING (pool-based for duplicates) */
+let selectedPronounEl = null; // el
+let selectedConjEl = null;    // el
+let matchedCount = 0;
 
 function buildMatchingUI(){
   pronounList.innerHTML = "";
   conjList.innerHTML = "";
+  selectedPronounEl = null;
+  selectedConjEl = null;
+  matchedCount = 0;
 
-  selectedPronoun = null;
-  selectedConj = null;
-  lockedPronounIds.clear();
-  lockedConjEls.clear();
-  lockedPronounEls.clear();
-  matchCount = 0;
-
-  // Pronouns randomized
-  const pronounItems = shuffle(MATCH_PAIRS.map(p => ({ id: p.id, text: p.pronoun })));
-  // Conjugations randomized; duplicates are separate tiles
-  const conjItems = shuffle(MATCH_PAIRS.map(p => ({ id: p.id, text: p.conj })));
-
-  for (const item of pronounItems){
+  // build pronoun tiles
+  const pronouns = shuffle(MATCH_TARGETS.map(x => ({ pronoun:x.pronoun, target:x.target })));
+  pronouns.forEach(item=>{
     const el = document.createElement("div");
     el.className = "tile";
-    el.dataset.id = item.id;
-    el.innerHTML = `<div>${item.text}</div><span class="chip">click</span>`;
+    el.dataset.target = item.target;     // what it needs
+    el.dataset.locked = "0";
+    el.innerHTML = `<div>${item.pronoun}</div><span class="chip">click</span>`;
     el.addEventListener("click", ()=>onPronounClick(el));
     pronounList.appendChild(el);
-  }
+  });
 
-  for (const item of conjItems){
+  // build conjugation tiles (including duplicates)
+  const conjs = shuffle(MATCH_TARGETS.map(x => x.target));
+  conjs.forEach(target=>{
     const el = document.createElement("div");
     el.className = "tile";
-    el.dataset.id = item.id;
-    el.innerHTML = `<div>${item.text}</div><span class="chip">click</span>`;
+    el.dataset.value = target; // what it is
+    el.dataset.locked = "0";
+    el.innerHTML = `<div>${target}</div><span class="chip">click</span>`;
     el.addEventListener("click", ()=>onConjClick(el));
     conjList.appendChild(el);
-  }
+  });
 
-  matchStatus.textContent = "Match all pairs to continue.";
+  matchStatus.textContent = `Matched 0 / ${MATCH_TARGETS.length}`;
 }
 
-function clearTempBad(){
+function clearBad(){
   document.querySelectorAll(".tile.bad").forEach(el=>el.classList.remove("bad"));
 }
 
 function onPronounClick(el){
-  const id = el.dataset.id;
-  if (lockedPronounIds.has(id) || lockedPronounEls.has(el)) return;
-
-  clearTempBad();
-  // deselect other pronouns
+  if (el.dataset.locked === "1") return;
+  clearBad();
   document.querySelectorAll("#pronounList .tile.selected").forEach(t=>t.classList.remove("selected"));
   el.classList.add("selected");
-  selectedPronoun = { id, el };
-  tryResolveMatch();
+  selectedPronounEl = el;
+  tryMatch();
 }
 
 function onConjClick(el){
-  const id = el.dataset.id;
-  if (lockedConjEls.has(el)) return;
-
-  clearTempBad();
-  // deselect other conjugations
+  if (el.dataset.locked === "1") return;
+  clearBad();
   document.querySelectorAll("#conjList .tile.selected").forEach(t=>t.classList.remove("selected"));
   el.classList.add("selected");
-  selectedConj = { id, el };
-  tryResolveMatch();
+  selectedConjEl = el;
+  tryMatch();
 }
 
-function tryResolveMatch(){
-  if (!selectedPronoun || !selectedConj) return;
+function tryMatch(){
+  if (!selectedPronounEl || !selectedConjEl) return;
 
-  const correct = selectedPronoun.id === selectedConj.id;
+  const need = selectedPronounEl.dataset.target;
+  const got = selectedConjEl.dataset.value;
+  const ok = (need === got);
 
-  if (correct){
-    // lock by pronoun id, and lock these specific elements
-    lockedPronounIds.add(selectedPronoun.id);
-    lockedPronounEls.add(selectedPronoun.el);
-    lockedConjEls.add(selectedConj.el);
+  if (ok){
+    // lock both tiles
+    selectedPronounEl.dataset.locked = "1";
+    selectedConjEl.dataset.locked = "1";
+    selectedPronounEl.classList.remove("selected");
+    selectedConjEl.classList.remove("selected");
+    selectedPronounEl.classList.add("locked");
+    selectedConjEl.classList.add("locked");
+    selectedPronounEl.querySelector(".chip").textContent = "✓";
+    selectedConjEl.querySelector(".chip").textContent = "✓";
+    matchedCount++;
+    matchStatus.textContent = `Matched ${matchedCount} / ${MATCH_TARGETS.length}`;
+    selectedPronounEl = null;
+    selectedConjEl = null;
 
-    selectedPronoun.el.classList.remove("selected");
-    selectedConj.el.classList.remove("selected");
-    selectedPronoun.el.classList.add("locked");
-    selectedConj.el.classList.add("locked");
-    selectedPronoun.el.querySelector(".chip").textContent = "✓";
-    selectedConj.el.querySelector(".chip").textContent = "✓";
-
-    selectedPronoun = null;
-    selectedConj = null;
-
-    matchCount++;
-    matchStatus.textContent = `Matched ${matchCount} / ${MATCH_PAIRS.length}`;
-
-    if (matchCount === MATCH_PAIRS.length){
+    if (matchedCount === MATCH_TARGETS.length){
       matchStatus.textContent = "Nice — moving to scenarios…";
       setTimeout(startScenarios, 350);
     }
   } else {
-    // wrong: flash red
-    selectedPronoun.el.classList.add("bad");
-    selectedConj.el.classList.add("bad");
-    selectedPronoun.el.classList.remove("selected");
-    selectedConj.el.classList.remove("selected");
-
-    const p = selectedPronoun;
-    const c = selectedConj;
-    selectedPronoun = null;
-    selectedConj = null;
-
-    setTimeout(()=>{
-      p.el.classList.remove("bad");
-      c.el.classList.remove("bad");
-    }, 450);
+    selectedPronounEl.classList.add("bad");
+    selectedConjEl.classList.add("bad");
+    selectedPronounEl.classList.remove("selected");
+    selectedConjEl.classList.remove("selected");
+    const p = selectedPronounEl, c = selectedConjEl;
+    selectedPronounEl = null;
+    selectedConjEl = null;
+    setTimeout(()=>{ p.classList.remove("bad"); c.classList.remove("bad"); }, 450);
   }
 }
 
-/* ============================================================
-   STAGE 2: SCENARIOS
-   ============================================================ */
+/* STAGE 2 SCENARIOS */
+function expectedFor(key){
+  if (key==="je") return "Je suis";
+  if (key==="tu") return "Tu es";
+  if (key==="il") return "Il est";
+  if (key==="elle") return "Elle est";
+  if (key==="on") return "On est";
+  if (key==="nous") return "Nous sommes";
+  if (key==="vous") return "Vous êtes";
+  if (key==="ils") return "Ils sont";
+  if (key==="elles") return "Elles sont";
+  return "";
+}
+function promptFor(key){
+  if (key==="je") return `I am …`;
+  if (key==="tu") return `You are (informal) …`;
+  if (key==="vous") return `You are (formal) …`;
+  if (key==="nous") return `We are …`;
+  if (key==="on") return `One is / People are …`;
+  if (key==="il") return `${NAMES_MALE[Math.floor(Math.random()*NAMES_MALE.length)]} is …`;
+  if (key==="elle") return `${NAMES_FEMALE[Math.floor(Math.random()*NAMES_FEMALE.length)]} is …`;
+  if (key==="ils") return `${NAMES_GROUP_MIXED[Math.floor(Math.random()*NAMES_GROUP_MIXED.length)]} are …`;
+  if (key==="elles") return `${NAMES_GROUP_FEMALE[Math.floor(Math.random()*NAMES_GROUP_FEMALE.length)]} are …`;
+  return "—";
+}
+
 let questions = [];
 let qIndex = 0;
 
-function expectedPhraseForKey(key){
-  const p = MATCH_PAIRS.find(x => x.id === key);
-  return `${p.pronoun} ${p.conj}`;
-}
-
-function makePromptForKey(key){
-  // Make grammatically correct English prompts and disambiguate you-formality
-  if (key === "je") return `I am …`;
-  if (key === "tu") return `You are (informal) …`;
-  if (key === "vous") return `You are (formal) …`;
-  if (key === "nous") return `We are …`;
-  if (key === "on") return `One is / People are …`;
-  if (key === "il") {
-    const name = NAMES_MALE[Math.floor(Math.random()*NAMES_MALE.length)];
-    return `${name} is …`;
-  }
-  if (key === "elle") {
-    const name = NAMES_FEMALE[Math.floor(Math.random()*NAMES_FEMALE.length)];
-    return `${name} is …`;
-  }
-  if (key === "ils") {
-    const name = NAMES_GROUP_MIXED[Math.floor(Math.random()*NAMES_GROUP_MIXED.length)];
-    return `${name} are …`;
-  }
-  if (key === "elles") {
-    const name = NAMES_GROUP_FEMALE[Math.floor(Math.random()*NAMES_GROUP_FEMALE.length)];
-    return `${name} are …`;
-  }
-  return `—`;
-}
-
-function buildScenarioQuestions(){
+function buildQuestions(){
   const keys = shuffle(SCENARIO_KEYS);
-  questions = keys.map(key => ({
-    key,
-    prompt: makePromptForKey(key),
-    expected: expectedPhraseForKey(key)
-  }));
+  questions = keys.map(k => ({ key:k, prompt:promptFor(k), expected:expectedFor(k) }));
   qIndex = 0;
 }
 
-function renderScenario(){
+function renderQ(){
   const q = questions[qIndex];
-  qProgress.textContent = `Question ${qIndex + 1} / ${questions.length}`;
+  qProgress.textContent = `Question ${qIndex+1} / ${questions.length}`;
   promptText.textContent = q.prompt;
   answerInput.value = "";
   statusBox.classList.remove("good","bad");
@@ -752,24 +650,21 @@ function renderScenario(){
   answerInput.focus();
 }
 
-function checkScenario(){
+function checkQ(){
   const q = questions[qIndex];
   const got = normalize(answerInput.value);
   const exp = normalize(q.expected);
 
   if (got === exp){
-    statusBox.classList.remove("bad");
     statusBox.classList.add("good");
+    statusBox.classList.remove("bad");
     statusBox.textContent = "Correct ✓";
     qIndex++;
-    if (qIndex >= questions.length){
-      finishGame();
-    } else {
-      setTimeout(renderScenario, 250);
-    }
+    if (qIndex >= questions.length) finishGame();
+    else setTimeout(renderQ, 250);
   } else {
-    statusBox.classList.remove("good");
     statusBox.classList.add("bad");
+    statusBox.classList.remove("good");
     statusBox.textContent = "Not quite — try again (use ê for êtes).";
     answerInput.focus();
     answerInput.select();
@@ -778,13 +673,11 @@ function checkScenario(){
 
 function startScenarios(){
   show(scenarioScreen);
-  buildScenarioQuestions();
-  renderScenario();
+  buildQuestions();
+  renderQ();
 }
 
-/* ============================================================
-   FINISH + LEADERBOARD
-   ============================================================ */
+/* LEADERBOARD */
 let finalMs = null;
 
 async function loadScores(){
@@ -792,21 +685,18 @@ async function loadScores(){
   saveStatus.textContent = "Loading leaderboard…";
   scoreTable.style.display = "none";
   scoreBody.innerHTML = "";
-
   try{
     const res = await fetch(HIGHSCORE_URL, { method:"GET" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     const items = Array.isArray(data?.scores) ? data.scores : [];
-
     if (!items.length){
       saveStatus.textContent = "No scores yet. Be the first!";
       return;
     }
-
     scoreTable.style.display = "table";
     saveStatus.textContent = "Leaderboard loaded.";
-    items.slice(0,10).forEach((s, i)=>{
+    items.slice(0,10).forEach((s,i)=>{
       const tr = document.createElement("tr");
       const dt = s.date ? new Date(s.date) : null;
       const dateText = dt && !isNaN(dt) ? dt.toLocaleDateString() : "—";
@@ -818,7 +708,7 @@ async function loadScores(){
       `;
       scoreBody.appendChild(tr);
     });
-  }catch(err){
+  }catch(e){
     saveStatus.classList.add("bad");
     saveStatus.textContent = "Couldn’t load leaderboard (check Worker URL + CORS).";
   }
@@ -831,19 +721,17 @@ async function saveScore(){
   saveBtn.disabled = true;
   saveStatus.classList.remove("good","bad");
   saveStatus.textContent = "Saving…";
-
   try{
     const res = await fetch(HIGHSCORE_URL, {
       method:"POST",
-      headers: { "Content-Type":"application/json" },
+      headers:{ "Content-Type":"application/json" },
       body: JSON.stringify({ name, ms: finalMs })
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
     saveStatus.classList.add("good");
     saveStatus.textContent = "Saved ✓";
     await loadScores();
-  }catch(err){
+  }catch(e){
     saveBtn.disabled = false;
     saveStatus.classList.add("bad");
     saveStatus.textContent = "Save failed — check Worker secrets + Notion DB sharing.";
@@ -852,7 +740,7 @@ async function saveScore(){
 
 function finishGame(){
   stopTimer();
-  finalMs = totalElapsedMs();
+  finalMs = elapsedMs();
 
   boardTitle.textContent = "Finished 🎉";
   boardSubtitle.textContent = "Save your time and see the Top 10.";
@@ -863,33 +751,23 @@ function finishGame(){
   loadScores();
 }
 
-/* ============================================================
-   RESET
-   ============================================================ */
+/* RESET */
 function hardReset(){
   stopTimer();
   started = false;
   finalMs = null;
   timeText.textContent = "—";
   resetBtn.disabled = true;
-
-  // clear UI states
   pronounList.innerHTML = "";
   conjList.innerHTML = "";
-  matchStatus.textContent = "Match all pairs to continue.";
-
   statusBox.classList.remove("good","bad");
   statusBox.textContent = "Type your answer to continue.";
-
   nameInput.value = "";
   saveBtn.disabled = false;
-
   show(startScreen);
 }
 
-/* ============================================================
-   EVENTS
-   ============================================================ */
+/* EVENTS */
 apiLabel.textContent = HIGHSCORE_URL;
 apiLabel2.textContent = HIGHSCORE_URL;
 
@@ -897,7 +775,6 @@ startBtn.addEventListener("click", ()=>{
   if (started) return;
   started = true;
   resetBtn.disabled = false;
-
   startTimer();
   show(matchScreen);
   buildMatchingUI();
@@ -906,7 +783,6 @@ startBtn.addEventListener("click", ()=>{
 resetBtn.addEventListener("click", hardReset);
 
 viewBoardBtn.addEventListener("click", ()=>{
-  // View leaderboard any time (doesn't stop timer/game)
   boardTitle.textContent = "Leaderboard";
   boardSubtitle.textContent = "Top 10 fastest times.";
   finalTimeText.textContent = started ? `Current run time: ${timeText.textContent}` : "";
@@ -914,13 +790,10 @@ viewBoardBtn.addEventListener("click", ()=>{
   loadScores();
 });
 
-backToStartBtn.addEventListener("click", ()=>{
-  show(startScreen);
-});
+backToStartBtn.addEventListener("click", ()=>show(startScreen));
 
 playAgainBtn.addEventListener("click", ()=>{
   hardReset();
-  // auto-start a new run
   started = true;
   resetBtn.disabled = false;
   startTimer();
@@ -928,20 +801,14 @@ playAgainBtn.addEventListener("click", ()=>{
   buildMatchingUI();
 });
 
-checkBtn.addEventListener("click", checkScenario);
+checkBtn.addEventListener("click", checkQ);
 
 answerInput.addEventListener("keydown", (e)=>{
-  if (e.key === "Enter"){
-    e.preventDefault();
-    checkScenario();
-  } else if (e.key === "1"){
-    e.preventDefault();
-    insertAtCursor(answerInput, "ê");
-  }
+  if (e.key === "Enter"){ e.preventDefault(); checkQ(); }
+  else if (e.key === "1"){ e.preventDefault(); insertAtCursor(answerInput, "ê"); }
 });
 
 key1.addEventListener("click", ()=>insertAtCursor(answerInput, "ê"));
-
 saveBtn.addEventListener("click", saveScore);
 </script>
 
