@@ -313,7 +313,7 @@
         <h1>Être Speedrun: Pronouns + Conjugations</h1>
         <p class="sub">
           Stage 1: match pronouns → correct form of <em>être</em>. Stage 2: type the right phrase for each scenario.
-          Timer starts on <strong>Start</strong> and stops when you finish all 10 scenarios.
+          Timer starts on <strong>Start</strong> and stops when you finish all 10 typing scenarios.
         </p>
       </div>
 
@@ -580,7 +580,6 @@
       pronounList.innerHTML = "";
       conjList.innerHTML = "";
 
-      // Randomize display order each run
       pronounOrder = shuffle(PAIRS.map((_, i)=>i));
       conjOrder = shuffle(PAIRS.map((_, i)=>i));
 
@@ -836,7 +835,7 @@
       try{
         const res = await fetch(HIGHSCORE_URL, {
           method:"POST",
-          headers:{ "Content-Type":"application/jsonახლოებით:ing: 3.0)\" },
+          headers:{ "Content-Type":"application/json" },
           body: JSON.stringify({ name, ms: totalMs })
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
