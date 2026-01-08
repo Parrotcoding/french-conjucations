@@ -92,7 +92,6 @@
     .divider{height:1px; background:rgba(255,255,255,.12); margin:16px 0}
     .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center}
     .fine{font-size:12px;color:var(--muted);line-height:1.35}
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
     /* Matching */
     .matchWrap{
@@ -295,7 +294,6 @@
       <div class="row">
         <button class="btn" id="startBtn">Start</button>
       </div>
-      <div class="divider"></div>
     </div>
   </section>
 
@@ -387,19 +385,15 @@
           <button class="btn secondary" id="backToStartBtn">Back to Start</button>
           <button class="btn" id="playAgainBtn">Play Again</button>
         </div>
-
-        <p class="fine" style="margin-top:12px">API: <code id="apiLabel2"></code></p>
       </div>
     </div>
   </section>
 
 <script>
-/* CONFIG */
+/* CONFIG (kept internal; not shown in UI) */
 const HIGHSCORE_URL = "https://pronounfrenchleaderboard.orcajoon.workers.dev/api/highscores";
 
-/* MATCHING DATA
-   We intentionally allow ANY matching tile for duplicates.
-*/
+/* MATCHING DATA (pool-based for duplicates) */
 const MATCH_TARGETS = [
   { pronoun: "Je",    target: "suis"   },
   { pronoun: "Tu",    target: "es"     },
@@ -440,9 +434,6 @@ const answerInput = document.getElementById("answerInput");
 const checkBtn = document.getElementById("checkBtn");
 const statusBox = document.getElementById("statusBox");
 const key1 = document.getElementById("key1");
-
-const apiLabel = document.getElementById("apiLabel");
-const apiLabel2 = document.getElementById("apiLabel2");
 
 const boardTitle = document.getElementById("boardTitle");
 const boardSubtitle = document.getElementById("boardSubtitle");
@@ -506,8 +497,8 @@ function stopTimer(){ if (timerHandle) clearInterval(timerHandle); timerHandle =
 function elapsedMs(){ return Math.floor(performance.now() - startMs); }
 
 /* STAGE 1 MATCHING (pool-based for duplicates) */
-let selectedPronounEl = null; // el
-let selectedConjEl = null;    // el
+let selectedPronounEl = null;
+let selectedConjEl = null;
 let matchedCount = 0;
 
 function buildMatchingUI(){
@@ -517,24 +508,22 @@ function buildMatchingUI(){
   selectedConjEl = null;
   matchedCount = 0;
 
-  // build pronoun tiles
   const pronouns = shuffle(MATCH_TARGETS.map(x => ({ pronoun:x.pronoun, target:x.target })));
   pronouns.forEach(item=>{
     const el = document.createElement("div");
     el.className = "tile";
-    el.dataset.target = item.target;     // what it needs
+    el.dataset.target = item.target;
     el.dataset.locked = "0";
     el.innerHTML = `<div>${item.pronoun}</div><span class="chip">click</span>`;
     el.addEventListener("click", ()=>onPronounClick(el));
     pronounList.appendChild(el);
   });
 
-  // build conjugation tiles (including duplicates)
   const conjs = shuffle(MATCH_TARGETS.map(x => x.target));
   conjs.forEach(target=>{
     const el = document.createElement("div");
     el.className = "tile";
-    el.dataset.value = target; // what it is
+    el.dataset.value = target;
     el.dataset.locked = "0";
     el.innerHTML = `<div>${target}</div><span class="chip">click</span>`;
     el.addEventListener("click", ()=>onConjClick(el));
@@ -574,7 +563,6 @@ function tryMatch(){
   const ok = (need === got);
 
   if (ok){
-    // lock both tiles
     selectedPronounEl.dataset.locked = "1";
     selectedConjEl.dataset.locked = "1";
     selectedPronounEl.classList.remove("selected");
@@ -767,9 +755,6 @@ function hardReset(){
 }
 
 /* EVENTS */
-apiLabel.textContent = HIGHSCORE_URL;
-apiLabel2.textContent = HIGHSCORE_URL;
-
 startBtn.addEventListener("click", ()=>{
   if (started) return;
   started = true;
