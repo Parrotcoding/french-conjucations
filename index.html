@@ -1,896 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>French Pronouns + Être – 2-Stage Challenge</title>
-  <style>
-    :root{
-      --bg:#0b1220;
-      --card:rgba(255,255,255,.08);
-      --card2:rgba(255,255,255,.06);
-      --text:#e9eefc;
-      --muted:#a9b4d0;
-      --good:#34d399;
-      --bad:#fb7185;
-      --accent:#60a5fa;
-      --accent2:#c084fc;
-      --stroke:rgba(255,255,255,.12);
-      --shadow:0 20px 60px rgba(0,0,0,.35);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 800px at 15% 10%, rgba(96,165,250,.25), transparent 60%),
-        radial-gradient(900px 700px at 80% 30%, rgba(192,132,252,.22), transparent 55%),
-        radial-gradient(700px 600px at 35% 85%, rgba(52,211,153,.14), transparent 60%),
-        var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-    .app{
-      width:min(980px, 100%);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid var(--stroke);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    header{
-      padding:22px 22px 14px;
-      border-bottom:1px solid var(--stroke);
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      justify-content:space-between;
-    }
-    .title{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    h1{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
-    }
-    .rightTop{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
-      padding:8px 12px;
-      border-radius:999px;
-      color:var(--text);
-      font-size:13px;
-    }
-    .pill strong{font-weight:700}
-    .btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.18);
-      background:linear-gradient(180deg, rgba(96,165,250,.25), rgba(96,165,250,.12));
-      color:var(--text);
-      padding:10px 14px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:700;
-      font-size:13px;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
-      transition: transform .08s ease, filter .2s ease, opacity .2s ease;
-      user-select:none;
-    }
-    .btn:hover{filter:brightness(1.05)}
-    .btn:active{transform:translateY(1px)}
-    .btn.secondary{
-      background:rgba(255,255,255,.07);
-    }
-    .btn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-      transform:none;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Être Speedrun</title>
 
-    main{padding:18px 22px 22px}
-    .stageRow{
-      display:flex;
-      gap:14px;
-      align-items:stretch;
-      flex-wrap:wrap;
-    }
-    .card{
-      background:rgba(0,0,0,.18);
-      border:1px solid var(--stroke);
-      border-radius:var(--radius);
-      padding:16px;
-      flex:1 1 340px;
-      min-width:280px;
-    }
-    .card h2{
-      margin:0 0 8px;
-      font-size:14px;
-      letter-spacing:.2px;
-    }
-    .muted{color:var(--muted); font-size:13px; line-height:1.35}
-    .divider{height:1px;background:var(--stroke); margin:12px 0}
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  height:100%;
+  background:#070b14;
+  color:#eef2ff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto;
+}
 
-    /* Matching UI */
-    .matchWrap{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:10px;
-    }
-    .colTitle{
-      color:var(--muted);
-      font-size:12px;
-      margin:0 0 8px;
-      letter-spacing:.3px;
-      text-transform:uppercase;
-    }
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .tile{
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      border-radius:14px;
-      padding:12px 12px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .tile:hover{background:rgba(255,255,255,.08)}
-    .tile:active{transform:translateY(1px)}
-    .tile.selected{
-      border-color:rgba(96,165,250,.75);
-      background:rgba(96,165,250,.14);
-    }
-    .tile.locked{
-      cursor:default;
-      border-color:rgba(52,211,153,.55);
-      background:rgba(52,211,153,.10);
-    }
-    .tile.bad{
-      border-color:rgba(251,113,133,.75);
-      background:rgba(251,113,133,.10);
-    }
-    .chip{
-      font-size:12px;
-      padding:5px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.18);
-      color:var(--muted);
-      white-space:nowrap;
-    }
+.screen{
+  display:none;
+  height:100%;
+  width:100%;
+  box-sizing:border-box;
+  padding:32px;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+}
 
-    /* Scenarios */
-    .scenarioBox{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .prompt{
-      font-size:16px;
-      font-weight:800;
-      line-height:1.25;
-    }
-    .accentBar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      border:1px dashed rgba(255,255,255,.18);
-      background:rgba(255,255,255,.04);
-      padding:10px;
-      border-radius:14px;
-    }
-    .accentBar .hint{
-      color:var(--muted);
-      font-size:12px;
-      margin-right:auto;
-    }
-    .keyBtn{
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.18);
-      color:var(--text);
-      border-radius:999px;
-      padding:7px 10px;
-      cursor:pointer;
-      font-weight:800;
-      font-size:12px;
-    }
-    .keyBtn kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:11px;
-      padding:2px 6px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      margin-right:6px;
-    }
-    .answerRow{
-      display:flex;
-      gap:10px;
-      align-items:stretch;
-      flex-wrap:wrap;
-    }
-    input[type="text"]{
-      flex:1 1 260px;
-      min-width:220px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      padding:12px 12px;
-      font-size:15px;
-      outline:none;
-    }
-    input[type="text"]:focus{
-      border-color:rgba(96,165,250,.65);
-      box-shadow:0 0 0 4px rgba(96,165,250,.18);
-    }
-    .status{
-      font-size:13px;
-      font-weight:700;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
-      color:var(--muted);
-    }
-    .status.good{
-      border-color:rgba(52,211,153,.55);
-      background:rgba(52,211,153,.10);
-      color:rgba(232,255,244,.92);
-    }
-    .status.bad{
-      border-color:rgba(251,113,133,.6);
-      background:rgba(251,113,133,.10);
-      color:rgba(255,236,240,.92);
-    }
+.screen.active{display:flex}
 
-    /* Highscores */
-    .scores{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.12);
-    }
-    th, td{
-      text-align:left;
-      padding:10px 10px;
-      font-size:13px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    th{color:var(--muted); font-weight:800; font-size:12px; text-transform:uppercase; letter-spacing:.4px}
-    tr:last-child td{border-bottom:none}
-    .fine{font-size:12px;color:var(--muted);line-height:1.35}
+h1{margin:0 0 8px}
+p{color:#a9b4d0;margin:6px 0 18px}
 
-    .hidden{display:none !important}
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
-  </style>
+button{
+  padding:14px 26px;
+  border-radius:999px;
+  border:none;
+  background:#60a5fa;
+  color:#000;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:rgba(255,255,255,.12);
+  color:#eef2ff;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  width:100%;
+  max-width:640px;
+}
+
+.tile{
+  padding:16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.tile.selected{outline:3px solid #60a5fa}
+.tile.correct{
+  background:rgba(52,211,153,.25);
+  border-color:#34d399;
+  cursor:default;
+}
+
+input{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08);
+  color:#eef2ff;
+  font-size:18px;
+  width:280px;
+  text-align:center;
+}
+
+.status{margin-top:16px;font-weight:800}
+.good{color:#34d399}
+.bad{color:#fb7185}
+
+.timer{
+  position:fixed;
+  top:16px;
+  right:16px;
+  background:rgba(0,0,0,.4);
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:800;
+}
+</style>
 </head>
+
 <body>
-  <div class="app">
-    <header>
-      <div class="title">
-        <h1>Être Speedrun: Pronouns + Conjugations</h1>
-        <p class="sub">
-          Stage 1: match pronouns → correct form of <em>être</em>. Stage 2: type the right phrase for each scenario.
-          Timer starts on <strong>Start</strong> and stops when you finish all 10 typing scenarios.
-        </p>
-      </div>
 
-      <div class="rightTop">
-        <div class="pill"><strong>Time</strong> <span id="timeText">—</span></div>
-        <button class="btn" id="startBtn">Start</button>
-        <button class="btn secondary" id="resetBtn" disabled>Reset</button>
-      </div>
-    </header>
+<div class="timer" id="timer">0.00</div>
 
-    <main>
-      <div class="stageRow">
-        <section class="card" id="gameCard">
-          <h2 id="stageTitle">Ready</h2>
-          <div class="muted" id="stageDesc">
-            Press <strong>Start</strong> to begin. You’ll do matching first, then 10 typing scenarios.
-          </div>
+<!-- START -->
+<div class="screen active" id="start">
+  <h1>Être Speedrun</h1>
+  <p>Match → Scenarios → Leaderboard</p>
+  <button onclick="startGame()">Start</button>
+</div>
 
-          <div class="divider"></div>
+<!-- MATCHING -->
+<div class="screen" id="match">
+  <h1>Match the phrases</h1>
+  <div class="grid" id="matchGrid"></div>
+</div>
 
-          <!-- Stage 1 -->
-          <div id="stage1" class="hidden">
-            <div class="matchWrap">
-              <div>
-                <p class="colTitle">Pronouns</p>
-                <div class="list" id="pronounList"></div>
-              </div>
-              <div>
-                <p class="colTitle">Conjugations</p>
-                <div class="list" id="conjList"></div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="muted">
-              Tip: click a pronoun, then click its matching conjugation. Correct pairs lock in.
-            </div>
-          </div>
+<!-- SCENARIOS -->
+<div class="screen" id="scenarios">
+  <h1 id="prompt"></h1>
 
-          <!-- Stage 2 -->
-          <div id="stage2" class="hidden">
-            <div class="scenarioBox">
-              <div class="muted" id="qProgress">Question 1 / 10</div>
-              <div class="prompt" id="promptText">—</div>
-
-              <div class="accentBar">
-                <div class="hint">Accent keys (click or press key):</div>
-                <button class="keyBtn" id="key1" title="Insert ê"><kbd>1</kbd> ê</button>
-              </div>
-
-              <div class="answerRow">
-                <input id="answerInput" type="text" autocomplete="off" placeholder="Type your answer (e.g., Il est)" />
-                <button class="btn" id="submitBtn">Check</button>
-              </div>
-
-              <div class="status" id="statusBox">Type the correct phrase to continue.</div>
-
-              <div class="fine">
-                Required accent: <strong>êtes</strong> (use ê). Answers are case-insensitive; spaces are flexible.
-              </div>
-            </div>
-          </div>
-
-          <!-- Finish -->
-          <div id="finish" class="hidden">
-            <h2 style="margin:0 0 6px;">Finished 🎉</h2>
-            <div class="muted" id="finalTime">—</div>
-            <div class="divider"></div>
-            <div class="scenarioBox">
-              <div class="muted">Submit your time to the Notion leaderboard:</div>
-              <div class="answerRow">
-                <input id="nameInput" type="text" maxlength="24" placeholder="Name (e.g., Sophia)" />
-                <button class="btn" id="saveScoreBtn">Save</button>
-              </div>
-              <div class="status" id="saveStatus">Waiting…</div>
-              <div class="fine">
-                If the leaderboard can’t load, confirm your Worker endpoint returns JSON at
-                <code>.../api/highscores</code> and has CORS enabled.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <aside class="card">
-          <h2>Top 10 Highscores</h2>
-          <div class="muted">Fastest total times (lower is better).</div>
-          <div class="divider"></div>
-
-          <div class="scores">
-            <div class="muted" id="scoresHint">Loading…</div>
-            <table id="scoreTable" class="hidden">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Time</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody id="scoreBody"></tbody>
-            </table>
-            <div class="fine">
-              Backed by Notion via your Worker:
-              <code id="apiText"></code>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </main>
+  <input id="answer" placeholder="Type answer…" autocomplete="off">
+  <div style="margin-top:12px">
+    <button onclick="insertAccent()">1 = ê</button>
   </div>
 
-  <script>
-    // ============================================================
-    // IMPORTANT: Set your Cloudflare Worker base URL here
-    // ============================================================
-    const API_BASE = "https://pronounfrenchleaderboard.orcajoon.workers.dev";
-    const HIGHSCORE_URL = `${API_BASE}/api/highscores`;
+  <div class="status" id="status"></div>
+</div>
 
-    // -----------------------------
-    // Core data (stage 1 + expected)
-    // -----------------------------
-    const PAIRS = [
-      { pronoun: "Je",    answer: "Je suis"   },
-      { pronoun: "Tu",    answer: "Tu es"     },
-      { pronoun: "Il",    answer: "Il est"    },
-      { pronoun: "Elle",  answer: "Elle est"  },
-      { pronoun: "On",    answer: "On est"    },
-      { pronoun: "Nous",  answer: "Nous sommes" },
-      { pronoun: "Vous",  answer: "Vous êtes" },  // needs ê
-      { pronoun: "Ils",   answer: "Ils sont"  },
-      { pronoun: "Elles", answer: "Elles sont"}
-    ];
+<!-- FINISH -->
+<div class="screen" id="finish">
+  <h1>Finished 🎉</h1>
+  <p id="finalTime"></p>
+</div>
 
-    // Scenarios: 10 questions, with 2 that are "Ils sont" (mixed gender uses ils)
-    const SCENARIO_BLUEPRINT = [
-      { key: "Je" },
-      { key: "Tu" },
-      { key: "Il" },
-      { key: "Elle" },
-      { key: "On" },
-      { key: "Nous" },
-      { key: "Vous" },
-      { key: "Ils" },   // 1/2
-      { key: "Ils" },   // 2/2
-      { key: "Elles" }
-    ];
+<script>
+const API_URL = "https://pronounfrenchleaderboard.orcajoon.workers.dev/api/highscores";
 
-    const NAMES_MALE = ["Pierre","Louis","Hugo","Noah","Lucas","Arthur","Jules","Paul","Maxime","Théo","Antoine","Nicolas"];
-    const NAMES_FEMALE = ["Marie","Camille","Chloé","Emma","Léa","Sophie","Manon","Sarah","Julie","Inès","Anaïs","Clara"];
-    const NAMES_GROUP_MIXED = ["Pierre & Marie", "Louis & Chloé", "Hugo & Emma", "Jules & Léa", "Arthur & Sophie"];
-    const NAMES_GROUP_FEMALE = ["Marie & Camille", "Chloé & Léa", "Emma & Sarah", "Julie & Clara", "Inès & Anaïs"];
-    const NAMES_NEUTRAL = ["Ça", "Tout", "Ici", "On", "Paris"];
+const pairs = [
+  "Je suis","Tu es","Il est","Elle est",
+  "On est","Nous sommes","Vous êtes",
+  "Ils sont","Elles sont"
+];
 
-    // -----------------------------
-    // DOM
-    // -----------------------------
-    const startBtn = document.getElementById("startBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const timeText = document.getElementById("timeText");
-    const apiText  = document.getElementById("apiText");
+let startTime, timerInt;
+const timerEl = document.getElementById("timer");
 
-    const stageTitle = document.getElementById("stageTitle");
-    const stageDesc  = document.getElementById("stageDesc");
+function startTimer(){
+  startTime = performance.now();
+  timerInt = setInterval(()=>{
+    timerEl.textContent = ((performance.now()-startTime)/1000).toFixed(2);
+  },50);
+}
 
-    const stage1 = document.getElementById("stage1");
-    const stage2 = document.getElementById("stage2");
-    const finish = document.getElementById("finish");
+function stopTimer(){
+  clearInterval(timerInt);
+}
 
-    const pronounList = document.getElementById("pronounList");
-    const conjList    = document.getElementById("conjList");
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-    const qProgress   = document.getElementById("qProgress");
-    const promptText  = document.getElementById("promptText");
-    const answerInput = document.getElementById("answerInput");
-    const submitBtn   = document.getElementById("submitBtn");
-    const statusBox   = document.getElementById("statusBox");
+function shuffle(a){
+  return [...a].sort(()=>Math.random()-0.5);
+}
 
-    const key1 = document.getElementById("key1");
-
-    const finalTime = document.getElementById("finalTime");
-    const nameInput = document.getElementById("nameInput");
-    const saveScoreBtn = document.getElementById("saveScoreBtn");
-    const saveStatus = document.getElementById("saveStatus");
-
-    const scoresHint = document.getElementById("scoresHint");
-    const scoreTable = document.getElementById("scoreTable");
-    const scoreBody  = document.getElementById("scoreBody");
-
-    // -----------------------------
-    // State
-    // -----------------------------
-    let started = false;
-    let startMs = 0;
-    let timerHandle = null;
-
-    // Stage 1 state
-    let selectedPronoun = null;  // {idx, el}
-    let selectedConj = null;     // {idx, el}
-    let lockedPronouns = new Set();
-    let lockedConjs = new Set();
-    let pronounOrder = [];
-    let conjOrder = [];
-
-    // Stage 2 state
-    let questions = []; // array of {prompt, expected}
-    let qIndex = 0;
-
-    // -----------------------------
-    // Helpers
-    // -----------------------------
-    function shuffle(arr){
-      const a = arr.slice();
-      for (let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]]=[a[j],a[i]];
-      }
-      return a;
-    }
-
-    function formatTime(ms){
-      const total = Math.max(0, Math.floor(ms));
-      const sec = Math.floor(total/1000);
-      const m = Math.floor(sec/60);
-      const s = sec % 60;
-      const cs = Math.floor((total % 1000)/10); // centiseconds
-      return `${m}:${String(s).padStart(2,"0")}.${String(cs).padStart(2,"0")}`;
-    }
-
-    function normalizeAnswer(s){
-      return (s || "")
-        .trim()
-        .replace(/\s+/g, " ")
-        .toLowerCase();
-    }
-
-    function setStatus(type, msg){
-      statusBox.classList.remove("good","bad");
-      if (type) statusBox.classList.add(type);
-      statusBox.textContent = msg;
-    }
-
-    function showOnly(which){
-      stage1.classList.add("hidden");
-      stage2.classList.add("hidden");
-      finish.classList.add("hidden");
-      which.classList.remove("hidden");
-    }
-
-    function stopTimer(){
-      if (timerHandle) clearInterval(timerHandle);
-      timerHandle = null;
-    }
-
-    function startTimer(){
-      stopTimer();
-      timerHandle = setInterval(()=>{
-        timeText.textContent = formatTime(performance.now() - startMs);
-      }, 50);
-    }
-
-    // -----------------------------
-    // Stage 1: Matching
-    // -----------------------------
-    function buildMatchingUI(){
-      pronounList.innerHTML = "";
-      conjList.innerHTML = "";
-
-      pronounOrder = shuffle(PAIRS.map((_, i)=>i));
-      conjOrder = shuffle(PAIRS.map((_, i)=>i));
-
-      lockedPronouns.clear();
-      lockedConjs.clear();
-      selectedPronoun = null;
-      selectedConj = null;
-
-      pronounOrder.forEach((pairIdx)=>{
-        const p = PAIRS[pairIdx].pronoun;
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.dataset.pairIdx = String(pairIdx);
-        tile.innerHTML = `<div><strong>${p}</strong></div><span class="chip">click</span>`;
-        tile.addEventListener("click", ()=>onPronounClick(tile));
-        pronounList.appendChild(tile);
-      });
-
-      conjOrder.forEach((pairIdx)=>{
-        const full = PAIRS[pairIdx].answer;
-        const conj = full.split(" ").slice(1).join(" ");
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.dataset.pairIdx = String(pairIdx);
-        tile.innerHTML = `<div><strong>${conj}</strong></div><span class="chip">click</span>`;
-        tile.addEventListener("click", ()=>onConjClick(tile));
-        conjList.appendChild(tile);
-      });
-    }
-
-    function clearTempBad(){
-      document.querySelectorAll(".tile.bad").forEach(el=>el.classList.remove("bad"));
-    }
-
-    function onPronounClick(el){
-      const idx = Number(el.dataset.pairIdx);
-      if (lockedPronouns.has(idx)) return;
-
-      clearTempBad();
-      document.querySelectorAll("#pronounList .tile.selected").forEach(t=>t.classList.remove("selected"));
-      el.classList.add("selected");
-      selectedPronoun = { idx, el };
-      tryResolveMatch();
-    }
-
-    function onConjClick(el){
-      const idx = Number(el.dataset.pairIdx);
-      if (lockedConjs.has(idx)) return;
-
-      clearTempBad();
-      document.querySelectorAll("#conjList .tile.selected").forEach(t=>t.classList.remove("selected"));
-      el.classList.add("selected");
-      selectedConj = { idx, el };
-      tryResolveMatch();
-    }
-
-    function tryResolveMatch(){
-      if (!selectedPronoun || !selectedConj) return;
-
-      const correct = selectedPronoun.idx === selectedConj.idx;
-      if (correct){
-        lockedPronouns.add(selectedPronoun.idx);
-        lockedConjs.add(selectedConj.idx);
-        selectedPronoun.el.classList.remove("selected");
-        selectedConj.el.classList.remove("selected");
-        selectedPronoun.el.classList.add("locked");
-        selectedConj.el.classList.add("locked");
-        selectedPronoun.el.querySelector(".chip").textContent = "✓";
-        selectedConj.el.querySelector(".chip").textContent = "✓";
-        selectedPronoun = null;
-        selectedConj = null;
-
-        if (lockedPronouns.size === PAIRS.length){
-          startStage2();
+/* MATCHING */
+let first=null, matched=0;
+function startGame(){
+  startTimer();
+  show("match");
+  const grid=document.getElementById("matchGrid");
+  grid.innerHTML="";
+  shuffle(pairs).forEach(text=>{
+    const d=document.createElement("div");
+    d.className="tile";
+    d.textContent=text;
+    d.onclick=()=>{
+      if(d.classList.contains("correct"))return;
+      d.classList.add("selected");
+      if(!first){first=d}
+      else{
+        if(first.textContent===d.textContent){
+          first.classList.add("correct");
+          d.classList.add("correct");
+          matched++;
+          if(matched===pairs.length){
+            setTimeout(startScenarios,400);
+          }
+        }else{
+          first.classList.remove("selected");
+          d.classList.remove("selected");
         }
-      } else {
-        selectedPronoun.el.classList.add("bad");
-        selectedConj.el.classList.add("bad");
-        selectedPronoun.el.classList.remove("selected");
-        selectedConj.el.classList.remove("selected");
-
-        const p = selectedPronoun;
-        const c = selectedConj;
-        selectedPronoun = null;
-        selectedConj = null;
-
-        setTimeout(()=>{
-          p.el.classList.remove("bad");
-          c.el.classList.remove("bad");
-        }, 450);
+        first=null;
       }
-    }
+    };
+    grid.appendChild(d);
+  });
+}
 
-    // -----------------------------
-    // Stage 2: Scenarios
-    // -----------------------------
-    function makeScenarioForKey(key){
-      const expected = PAIRS.find(p=>p.pronoun === key).answer;
+/* SCENARIOS */
+const scenarios = shuffle([
+  ["Pierre is","Il est"],
+  ["Marie is","Elle est"],
+  ["They (mixed) are","Ils sont"],
+  ["They (mixed) are","Ils sont"],
+  ["They (female) are","Elles sont"],
+  ["We are","Nous sommes"],
+  ["You are (informal)","Tu es"],
+  ["You are (formal)","Vous êtes"],
+  ["I am","Je suis"],
+  ["One is / people are","On est"]
+]);
 
-      let name;
-      if (key === "Il") name = NAMES_MALE[Math.floor(Math.random()*NAMES_MALE.length)];
-      else if (key === "Elle") name = NAMES_FEMALE[Math.floor(Math.random()*NAMES_FEMALE.length)];
-      else if (key === "Ils") name = NAMES_GROUP_MIXED[Math.floor(Math.random()*NAMES_GROUP_MIXED.length)];
-      else if (key === "Elles") name = NAMES_GROUP_FEMALE[Math.floor(Math.random()*NAMES_GROUP_FEMALE.length)];
-      else if (key === "On") name = NAMES_NEUTRAL[Math.floor(Math.random()*NAMES_NEUTRAL.length)];
-      else name = ["Je","Tu","Nous","Vous"].includes(key) ? "You" : "—";
+let q=0;
+function startScenarios(){
+  show("scenarios");
+  nextQ();
+}
 
-      return { prompt: `${name} is`, expected };
-    }
+function nextQ(){
+  if(q>=scenarios.length){
+    stopTimer();
+    show("finish");
+    document.getElementById("finalTime").textContent =
+      "Time: "+timerEl.textContent+"s";
+    return;
+  }
+  document.getElementById("prompt").textContent=scenarios[q][0];
+  document.getElementById("answer").value="";
+  document.getElementById("status").textContent="";
+}
 
-    function buildQuestions(){
-      const shuffled = shuffle(SCENARIO_BLUEPRINT);
-      questions = shuffled.map(q => makeScenarioForKey(q.key));
-      qIndex = 0;
-    }
+document.getElementById("answer").addEventListener("keydown",e=>{
+  if(e.key==="Enter")check();
+  if(e.key==="1"){e.preventDefault();insertAccent();}
+});
 
-    function renderQuestion(){
-      const q = questions[qIndex];
-      qProgress.textContent = `Question ${qIndex+1} / ${questions.length}`;
-      promptText.textContent = `${q.prompt} …`;
-      answerInput.value = "";
-      setStatus(null, "Type the correct phrase to continue.");
-      answerInput.focus();
-    }
+function insertAccent(){
+  const i=document.getElementById("answer");
+  i.value+="ê";
+}
 
-    function checkAnswer(){
-      const q = questions[qIndex];
-      const got = normalizeAnswer(answerInput.value);
-      const exp = normalizeAnswer(q.expected);
+function norm(s){return s.trim().toLowerCase().replace(/\s+/g," ")}
 
-      if (got === exp){
-        setStatus("good", "Correct ✓");
-        qIndex++;
-        if (qIndex >= questions.length){
-          finishRun();
-        } else {
-          setTimeout(renderQuestion, 250);
-        }
-      } else {
-        setStatus("bad", "Not quite — try again (you must get it exactly, including ê for êtes).");
-        answerInput.focus();
-        answerInput.select();
-      }
-    }
+function check(){
+  const ok = norm(answer.value)===norm(scenarios[q][1]);
+  const st=document.getElementById("status");
+  if(ok){
+    st.textContent="Correct ✓";
+    st.className="status good";
+    q++;
+    setTimeout(nextQ,300);
+  }else{
+    st.textContent="Try again";
+    st.className="status bad";
+  }
+}
+</script>
 
-    function insertAtCursor(input, text){
-      const start = input.selectionStart ?? input.value.length;
-      const end = input.selectionEnd ?? input.value.length;
-      const before = input.value.slice(0, start);
-      const after  = input.value.slice(end);
-      input.value = before + text + after;
-      const pos = start + text.length;
-      input.setSelectionRange(pos, pos);
-      input.focus();
-    }
-
-    // -----------------------------
-    // Flow
-    // -----------------------------
-    function startStage1(){
-      stageTitle.textContent = "Stage 1 — Matching";
-      stageDesc.textContent = "Match each pronoun with the correct form of être.";
-      showOnly(stage1);
-      buildMatchingUI();
-    }
-
-    function startStage2(){
-      stageTitle.textContent = "Stage 2 — Scenarios";
-      stageDesc.textContent = "Read the prompt, then type the correct French phrase.";
-      showOnly(stage2);
-      buildQuestions();
-      renderQuestion();
-    }
-
-    function finishRun(){
-      stopTimer();
-      const totalMs = performance.now() - startMs;
-      timeText.textContent = formatTime(totalMs);
-
-      stageTitle.textContent = "Done";
-      stageDesc.textContent = "Submit your time to the leaderboard.";
-      showOnly(finish);
-
-      finalTime.innerHTML = `Your time: <strong>${formatTime(totalMs)}</strong>`;
-      saveScoreBtn.disabled = false;
-      saveStatus.classList.remove("good","bad");
-      saveStatus.textContent = "Ready to save.";
-    }
-
-    function hardReset(){
-      stopTimer();
-      started = false;
-      startMs = 0;
-      timeText.textContent = "—";
-      startBtn.disabled = false;
-      resetBtn.disabled = true;
-
-      stageTitle.textContent = "Ready";
-      stageDesc.textContent = "Press Start to begin. You’ll do matching first, then 10 typing scenarios.";
-      stage1.classList.add("hidden");
-      stage2.classList.add("hidden");
-      finish.classList.add("hidden");
-    }
-
-    // -----------------------------
-    // Notion Highscores (via your Worker URL)
-    // -----------------------------
-    async function loadScores(){
-      scoresHint.textContent = "Loading…";
-      scoreTable.classList.add("hidden");
-      scoreBody.innerHTML = "";
-
-      try{
-        const res = await fetch(HIGHSCORE_URL, { method:"GET" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-
-        const items = Array.isArray(data?.scores) ? data.scores : [];
-        if (!items.length){
-          scoresHint.textContent = "No scores yet. Be the first!";
-          return;
-        }
-
-        scoresHint.textContent = "";
-        scoreTable.classList.remove("hidden");
-
-        items.slice(0,10).forEach((s, i)=>{
-          const tr = document.createElement("tr");
-          const dt = s.date ? new Date(s.date) : null;
-          const dateText = dt && !isNaN(dt) ? dt.toLocaleDateString() : "—";
-          tr.innerHTML = `
-            <td>${i+1}</td>
-            <td>${escapeHtml(s.name || "—")}</td>
-            <td><strong>${formatTime(Number(s.ms || 0))}</strong></td>
-            <td>${escapeHtml(dateText)}</td>
-          `;
-          scoreBody.appendChild(tr);
-        });
-      }catch(err){
-        scoresHint.textContent = "Couldn’t load leaderboard (check Worker URL + CORS).";
-      }
-    }
-
-    async function saveScore(){
-      const rawName = (nameInput.value || "").trim();
-      const name = rawName || "Anonymous";
-
-      const totalMs = Math.floor(performance.now() - startMs); // startMs preserved until reset
-      saveScoreBtn.disabled = true;
-      saveStatus.classList.remove("good","bad");
-      saveStatus.textContent = "Saving…";
-
-      try{
-        const res = await fetch(HIGHSCORE_URL, {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({ name, ms: totalMs })
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        saveStatus.classList.add("good");
-        saveStatus.textContent = "Saved ✓";
-        await loadScores();
-      }catch(err){
-        saveScoreBtn.disabled = false;
-        saveStatus.classList.add("bad");
-        saveStatus.textContent = "Save failed — check Worker secrets + Notion DB sharing.";
-      }
-    }
-
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[c]));
-    }
-
-    // -----------------------------
-    // Events
-    // -----------------------------
-    startBtn.addEventListener("click", ()=>{
-      if (started) return;
-      started = true;
-      startBtn.disabled = true;
-      resetBtn.disabled = false;
-
-      startMs = performance.now();
-      timeText.textContent = "0:00.00";
-      startTimer();
-
-      startStage1();
-    });
-
-    resetBtn.addEventListener("click", ()=>{
-      hardReset();
-    });
-
-    submitBtn.addEventListener("click", checkAnswer);
-    answerInput.addEventListener("keydown", (e)=>{
-      if (e.key === "Enter"){
-        e.preventDefault();
-        checkAnswer();
-      } else if (e.key === "1"){
-        e.preventDefault();
-        insertAtCursor(answerInput, "ê");
-      }
-    });
-
-    key1.addEventListener("click", ()=> insertAtCursor(answerInput, "ê"));
-    saveScoreBtn.addEventListener("click", saveScore);
-
-    // Show the API URL in the UI + load leaderboard
-    apiText.textContent = HIGHSCORE_URL;
-    loadScores();
-  </script>
 </body>
 </html>
